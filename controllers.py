@@ -28,6 +28,7 @@ Warning: Fixtures MUST be declared with @action.uses({fixtures}) else your app w
 from yatl.helpers import A
 
 from py4web import URL, abort, action, redirect, request
+from py4web.utils.form import Form, FormStyleBootstrap4
 
 from .common import (
     T,
@@ -47,4 +48,12 @@ from .common import (
 def index():
     user = auth.get_user()
     message = T("Hello {first_name}").format(**user) if user else T("Hello")
-    return dict(message=message)
+    form = Form(db.parent)
+    return dict(message=message, form=form)
+
+
+@action("childform")
+@action.uses("childform.html", auth, T)
+def childform():
+    form = Form(db.child)
+    return dict(form=form)
