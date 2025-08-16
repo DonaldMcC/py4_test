@@ -1,0 +1,8 @@
+[[extend 'layout.html']]
+
+<div class="section">
+[[for row in rows:]]
+    <p>[[=row['textfield'] ]] </p>
+    <p>[[=row['virtualfield2'] ]]</p>
+    [[pass]]
+</div>

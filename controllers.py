@@ -29,6 +29,7 @@ from yatl.helpers import A
 
 from py4web import URL, abort, action, redirect, request
 from py4web.utils.form import Form, FormStyleBootstrap4
+from py4web.utils.grid import Grid
 
 from .common import (
     T,
@@ -57,3 +58,30 @@ def index():
 def childform():
     form = Form(db.child)
     return dict(form=form)
+
+
+@action("childgrid")
+@action.uses("childgrid.html", auth, T)
+def childgrid():
+    grid = Grid(db.child)
+    return dict(grid=grid)
+
+
+@action("parentgrid")
+@action.uses("parentgrid.html", auth, T)
+def parentdgrid():
+    grid = Grid(db.parent)
+    return dict(grid=grid)
+
+@action("childrows")
+@action.uses("childrows.html", auth, T)
+def childrows():
+    rows = db(db.child.id>0).select()
+    return dict(rows=rows)
+
+
+@action("parentrows")
+@action.uses("parentrows.html", auth, T)
+def childrows():
+    rows = db(db.parent.id>0).select()
+    return dict(rows=rows)
